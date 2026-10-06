@@ -4,14 +4,16 @@ import { FinalHistoria,Tropeco, Alavanca, Batida, Susto, Lanterna, Eita, Morreu,
 let posicaoLeitor = 0; //calcula a posição do leitor
 
 let comicTerror = false; //variável booleana que define se a comic está em sua forma de terror ou não
+const isMobile = window.innerWidth <= 768;
 
 let iniciaAnimacaoPagina3 = false;
+let iniciaAnimacaoPagina3Patas = false;
 let iniciaAnimacaoPagina2 = false;
 
 const posicaoEventosDeScroll = {
     pg1: 0.9, //coloca borda nos itens coletáveis
-    pg2: 0.58, //mostra a animação do balao de surpresa da página 2
-    pg2_bichao: 0.52, //mostra o bichão da página 2
+    pg2: isMobile ? 0.63 : 0.58, //mostra a animação do balao de surpresa da página 2
+    pg2_bichao: isMobile ? 0.55 : 0.52, //mostra o bichão da página 2
     pg3: 0.98, //transforma a comic em terror
     pg3_patas: 0.995, //mostra as patas da página 3
     pg3Animacoes: 0.86, //inicia as animações da página 3
@@ -152,27 +154,36 @@ function initEventosDeScroll() {
             if (
                 posicaoLeitor <= posicaoEventosDeScroll.pg3_patas
                 && comicTerror
+                && !iniciaAnimacaoPagina3Patas
             ) {
+                iniciaAnimacaoPagina3Patas = true;
                 const patas = document.querySelectorAll(".patas");
+                
+                if (!isMobile) {
+                    let indicePata = 0;
+                    if (posicaoLeitor < 0.95) {
+                        indicePata = 4;
+                    } else if (posicaoLeitor < 0.96) {
+                        indicePata = 3;
+                    } else if (posicaoLeitor < 0.97) {
+                        indicePata = 2;
+                    } else if (posicaoLeitor < 0.98) {
+                        indicePata = 1;
+                    }
 
-                switch (true) {
-                    case posicaoLeitor < 0.95:
-                        patas[4].classList.add("ativo")
-                        break;
-                    case posicaoLeitor < 0.96:
-                        patas[3].classList.add("ativo")
-                        break;
-                    case posicaoLeitor < 0.97:
-                        patas[2].classList.add("ativo")
-                        break;
-                    case posicaoLeitor < 0.98:
-                        patas[1].classList.add("ativo")
-                        break;
-                    default:
+                    if (!pataDesktopInicializada || !patas[indicePata].classList.contains("ativo")) {
+                        patas[indicePata].classList.add("ativo");
+
+                        if (indicePata === 0) {
+                            pataDesktopInicializada = true;
+                        }
+                    }
+                } else {
+                    patas.forEach((pata, index) => {
                         setTimeout(() => {
-                            patas[0].classList.add("ativo")
-                        }, 1000);
-                        break;
+                            pata.classList.add("ativo");
+                        }, 1000 + index * 500);
+                    })
                 }
             }
         }
