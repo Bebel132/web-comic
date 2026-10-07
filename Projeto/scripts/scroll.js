@@ -122,6 +122,9 @@ function initEventosDeScroll() {
                             if (indice + 1 === imagensJumpscare.length - 1) {
                                 proximaImagemDoJumpscare.style.display = "flex";
                                 proximaImagemDoJumpscare.style.filter = "none";
+                                proximaImagemDoJumpscare.style.height = "100vh";
+                                proximaImagemDoJumpscare.style.width = "100%";
+                                document.body.style.padding = "0";
                                 proximaImagemDoJumpscare.style.backgroundColor = "#ff0000";
                             } else {
                                 proximaImagemDoJumpscare.style.display = "block";
