@@ -136,8 +136,10 @@ function initEventosDeScroll() {
                             if (indice + 1 === imagensJumpscare.length - 2) {
                                 Eita();
                                 setTimeout(() => {
-                                    proximaImagemDoJumpscare.click();
                                     Morreu();
+                                }, 500);
+                                setTimeout(() => {
+                                    proximaImagemDoJumpscare.click();
                                 }, 1000);
                             }
 
