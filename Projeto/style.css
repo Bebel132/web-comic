@@ -42,6 +42,10 @@ img.fundo {
     display: none;
 }
 
+.coletavel {
+    cursor: pointer;
+}
+
 .bordaColetavel {
     filter: drop-shadow(0px 0px 10px rgba(255, 255, 255, 0.6))
 }
@@ -262,6 +266,7 @@ body.travado-inicio {
     width: 100%;
     height: auto;
     color: #fff;
+    cursor: pointer;
 }
 
 .pisca {
